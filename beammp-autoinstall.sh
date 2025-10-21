@@ -2,24 +2,37 @@
 
 set -e
 
+################## Package manager check ##################
+if
+    (command -v apt || command -v pacman) > /dev/null 2>&1; then CONTAINER_MANAGER="docker"
+    elif
+        command -v emerge > /dev/null 2>&1; then CONTAINER_MANAGER="podman"
+    
+    else
+        exit 1
+fi
+###########################################################
 ######################## Variables ########################
 APT="apt install docker -y"
 PACMAN="pacman -S --needed --noconfirm docker"
+GENTOO="emerge -qU app-containers/podman"
 
-BUILD="docker build -t beammp-build:test ."
-RUN="docker run --name beammp-container --replace beammp-build:test"
-COPY="docker cp beammp-container:/home/BeamMP-Launcher ."
-STOP="docker stop beammp-container"
+BUILD="$CONTAINER_MANAGER build -t beammp-build:test ."
+RUN="$CONTAINER_MANAGER run --name beammp-container --replace beammp-build:test"
+COPY="$CONTAINER_MANAGER cp beammp-container:/home/BeamMP-Launcher ."
+STOP="$CONTAINER_MANAGER stop beammp-container"
 ###########################################################
-################## Package manager check ##################
+##################### Package install #####################
 if
-    command -v docker > /dev/null 2>&1; then true
+    (command -v docker || command -v podman) > /dev/null 2>&1; then true
     
     elif
         command -v apt > /dev/null 2>&1; then sudo sh -c "$APT"
     elif
         command -v pacman > /dev/null 2>&1; then sudo sh -c "$PACMAN"
-        
+    elif
+        command -v emerge > /dev/null 2>&1; then sudo sh -c "$GENTOO"            
+    
     else
         exit 1
 fi
@@ -79,6 +92,4 @@ errors()
     exit "$1"
 }
 ###########################################################
-###### Script made by pure spite, by @gabriele2000 ######
-
-
+###### Script made by pure spite, by @gabriele2000 ########
