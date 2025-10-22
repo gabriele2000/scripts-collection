@@ -13,7 +13,7 @@ if
 fi
 ###########################################################
 ######################## Variables ########################
-APT="apt install docker -y"
+APT="apt install podman-docker -y"
 PACMAN="pacman -S --needed --noconfirm docker"
 GENTOO="emerge -qU app-containers/podman"
 
