@@ -55,8 +55,8 @@ RUN apt-get update && apt-get install -y \
 
 # We run what we need to run
 RUN cd /tmp && \
-    git clone https://github.com/microsoft/vcpkg.git && \
-    git clone https://github.com/BeamMP/BeamMP-Launcher.git && \
+    git clone https://github.com/microsoft/vcpkg.git && cd vcpkg && git pull && cd .. && \
+    git clone https://github.com/BeamMP/BeamMP-Launcher.git && cd BeamMP-Launcher && git pull && cd .. && \
     ./vcpkg/bootstrap-vcpkg.sh && \
     export VCPKG_ROOT="$(pwd)/vcpkg" && \
     export PATH=$VCPKG_ROOT:$PATH && \
