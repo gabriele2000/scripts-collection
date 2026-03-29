@@ -11,37 +11,40 @@ read -p "Delete the source file after processing: 0 = No | 1 = Yes " post_proces
 
 if [ $process_mode == 1 ]; then
     read -p "Choose the video codec: " video_codec
+    read -p "Choose the destination format: " video_format
     read -p "Choose the destination (without the final /): " destination
+    
     for file in *; do
         
-        ffmpeg -i $file -c:v $video_codec -c:a copy \
+        ffmpeg -i "$file" -c:v $video_codec -c:a copy \
         -vf "mpdecimate" \
-        "$destination/$file"
+        "$destination/$file.$video_format"
         
         if [ $post_process_delete == 1 ]; then
-            rm -rf  $file
+            rm -rf "$file.$video_format"
         fi
     done
 fi
 
 if [ $process_mode == 2 ]; then
     read -p "Choose the video codec: " video_codec
+    read -p "Choose the destination format: " video_format
     read -p "Choose the framerate " framerate
     read -p "Choose the destination (without the final /): " destination
     
     for file in *; do
-        ffmpeg -i $file -c:v $video_codec -c:a copy \
+        ffmpeg -i "$file" -c:v $video_codec -c:a copy \
         -r $framerate \
-        "/tmp/$file"
+        "/tmp/$file.$video_format"
         
-        ffmpeg -i "/tmp/$file" -c:v $video_codec -c:a copy \
+        ffmpeg -i "/tmp/$file.$video_format" -c:v $video_codec -c:a copy \
         -vf "mpdecimate" \
-        "$destination/$file"
+        "$destination/$file.$video_format"
         
-        rm -rf "/tmp/$file"
+        rm -rf "/tmp/$file.$video_format"
         
         if [ $post_process_delete == 1 ]; then
-            rm -rf  $file
+            rm -rf "$file.$video_format"
         fi
     done
 fi
