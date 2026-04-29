@@ -2,7 +2,10 @@
 
 set -e
 
-################## Container manager check | Package install if missing ##################
+echo "beammp-autoinstall version 1.0.0"
+
+############################################################
+### Container manager check | Package install if missing ###
 if
   command -v podman > /dev/null 2>&1; then CONTAINER_MANAGER="podman"
   elif
