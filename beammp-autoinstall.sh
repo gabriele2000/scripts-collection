@@ -77,7 +77,7 @@ sh -c "$COPY" > /dev/null || sudo sh -c "$COPY" > /dev/null
 sh -c "$STOP" > /dev/null || sudo sh -c "$STOP" > /dev/null
     echo "Done! You will find the launcher in the folder you executed the script from!"
     echo "You can now close the terminal"
-sh -c "rm Dockerfile"
+rm Dockerfile
 
 ###########################################################
 ###### Script made by pure spite, by @gabriele2000 ########
