@@ -38,7 +38,7 @@ STOP="$CONTAINER_MANAGER stop beammp-container"
 ################### Dockerfile creation ###################
 tee Dockerfile > /dev/null << 'EOF'
 # Base image
-FROM ubuntu:26.04
+FROM ubuntu:24.04
 
 # Install apt-utils because otherwise shit happens, potentially
 RUN apt-get update && apt-get install -y apt-utils
