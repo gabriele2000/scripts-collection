@@ -2,7 +2,7 @@
 
 set -e
 
-echo "beammp-autoinstall version 1.0.0"
+echo "beammp-autoinstall version 1.1.0"
 
 ############################################################
 ### Container manager check | Package install if missing ###
@@ -40,11 +40,9 @@ tee Dockerfile > /dev/null << 'EOF'
 # Base image
 FROM ubuntu:24.04
 
-# Install apt-utils because otherwise shit happens, potentially
-RUN apt-get update && apt-get install -y apt-utils
-
-# Let's install the dependencies using the package manager
-RUN apt-get update && apt-get install -y \
+# Install apt-utils because otherwise shit happens, and install dependencies
+RUN apt-get update && apt-get full-upgrade -y && apt-get install -y \
+    apt-utils \
     git \
     curl \
     cmake \
