@@ -1,3 +1,5 @@
+## Repository migrated to gitea - https://gitea.com/gabriele2000/scripts-collection
+
 # IMAGE/VIDEO SCRIPTS
 
 When moving media files from Google Photo to another cloud, I had to create a way to automate the convertion of **a lot** of images (we're talking about 10k+ images) while retaining one of the most important aspect of the file: the creation date.
